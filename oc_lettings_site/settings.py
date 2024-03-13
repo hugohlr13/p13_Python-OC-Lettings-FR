@@ -1,5 +1,7 @@
 import os
 import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 
 from pathlib import Path
 from dotenv import load_dotenv
@@ -9,9 +11,42 @@ load_dotenv()
 # Sentry
 sentry_sdk.init(
     dsn=os.getenv('SENTRY_DSN'),
+    integrations=[DjangoIntegration()],
     traces_sample_rate=1.0,
     profiles_sample_rate=1.0,
+    send_default_pii=True
 )
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s '
+                      '%(process)d %(thread)d %(message)s'
+        },
+    },
+    'handlers': {
+        'sentry': {
+            'level': 'INFO',  # Capture info and above as Sentry events
+            'class': 'sentry_sdk.integrations.logging.EventHandler',
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['sentry'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        # Capture INFO level logs from other loggers
+        '': {
+            'handlers': ['sentry'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent

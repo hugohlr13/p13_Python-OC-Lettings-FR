@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from .models import Letting
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def index(request):
@@ -10,6 +13,7 @@ def index(request):
     """
     lettings_list = Letting.objects.all()
     context = {'lettings_list': lettings_list}
+    logger.info('Rendering OC Lettings Lettings')
     return render(request, 'lettings/index.html', context)
 
 
@@ -27,9 +31,14 @@ def letting(request, letting_id):
     Returns:
         HttpResponse object with the letting details.
     """
-    letting = Letting.objects.get(id=letting_id)
-    context = {
-        'title': letting.title,
-        'address': letting.address,
-    }
-    return render(request, 'lettings/letting.html', context)
+    try:
+        letting = Letting.objects.get(id=letting_id)
+        context = {
+            'title': letting.title,
+            'address': letting.address,
+        }
+        return render(request, 'lettings/letting.html', context)
+    except Letting.DoesNotExist:
+        logger.warning(f'Letting with id {letting_id} not found')
+    except Exception as e:  # noqa: F841
+        logger.error(f'Error loading letting with id {letting_id}', exc_info=True)
