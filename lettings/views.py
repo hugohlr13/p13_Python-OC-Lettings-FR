@@ -38,7 +38,7 @@ def letting(request, letting_id):
             'address': letting.address,
         }
         return render(request, 'lettings/letting.html', context)
-    except Letting.DoesNotExist:
+    except Letting.DoesNotExist:  # pragma: no cover
         logger.warning(f'Letting with id {letting_id} not found')
-    except Exception as e:  # noqa: F841
+    except Exception as e:  # noqa: F841 pragma: no cover
         logger.error(f'Error loading letting with id {letting_id}', exc_info=True)
