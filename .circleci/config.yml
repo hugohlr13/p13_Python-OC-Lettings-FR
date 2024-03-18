@@ -30,6 +30,12 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: Extract commit message
+          command: |
+            COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+            echo "export COMMIT_MESSAGE='${COMMIT_MESSAGE}'" >> $BASH_ENV
+            source $BASH_ENV
+      - run:
           name: Install dependencies
           command: |
             python -m venv .venv
@@ -38,8 +44,7 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            echo $CIRCLE_SHA1
-            docker build -t $DOCKERHUB_USERNAME/oc_lettings_site:$CIRCLE_SHA1 .
+            docker build -t $DOCKERHUB_USERNAME/oc_lettings_site:"${COMMIT_MESSAGE}" .
       - run:
           name: Log in to Docker Hub
           command: |
@@ -47,7 +52,7 @@ jobs:
       - run:
           name: Push Docker image to DockerHub
           command: |
-            docker push $DOCKERHUB_USERNAME/oc_lettings_site:$CIRCLE_SHA1  
+            docker push $DOCKERHUB_USERNAME/oc_lettings_site:"${COMMIT_MESSAGE}" 
 
   deploy:
     # This is an example deploy job, not actually used by the workflow
