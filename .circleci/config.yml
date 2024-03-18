@@ -21,7 +21,33 @@ jobs:
           name: Run tests
           command: |
             source .venv/bin/activate
-            pytest      
+            pytest
+
+  containerize:
+    docker:
+      - image: cimg/python:3.8
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Install dependencies
+          command: |
+            python -m venv .venv
+            source .venv/bin/activate
+            pip install -r requirements.txt
+      - run:
+          name: Build Docker image
+          command: |
+            docker build -t $DOCKERHUB_USERNAME/oc_lettings_site:$CIRCLE_SHA1 .
+      - run:
+          name: Log in to Docker Hub
+          command: |
+            echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
+      - run:
+          name: Push Docker image to DockerHub
+          command: |
+            docker push $DOCKERHUB_USERNAME/oc_lettings_site:$CIRCLE_SHA1  
+
   deploy:
     # This is an example deploy job, not actually used by the workflow
     docker:
@@ -31,10 +57,14 @@ jobs:
       - run:
           name: deploy
           command: '#e.g. ./deploy.sh'
+
 workflows:
   build-and-test:
     jobs:
       - test-python
+      - containerize:
+          requires:
+            - test-python
     # - deploy:
     #     requires:
     #       - test-python
