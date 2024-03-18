@@ -25,7 +25,7 @@ jobs:
 
   containerize:
     docker:
-      - image: cimg/python:3.8
+      - image: docker:latest
     steps:
       - checkout
       - setup_remote_docker
@@ -38,7 +38,7 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            docker build -t $DOCKERHUB_USERNAME/oc_lettings_site:$CIRCLE_SHA1 .
+            docker build -t $DOCKERHUB_USERNAME/oc_lettings_site:${CIRCLE_SHA1} .
       - run:
           name: Log in to Docker Hub
           command: |
@@ -46,7 +46,7 @@ jobs:
       - run:
           name: Push Docker image to DockerHub
           command: |
-            docker push $DOCKERHUB_USERNAME/oc_lettings_site:$CIRCLE_SHA1  
+            docker push $DOCKERHUB_USERNAME/oc_lettings_site:${CIRCLE_SHA1}  
 
   deploy:
     # This is an example deploy job, not actually used by the workflow
