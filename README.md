@@ -53,6 +53,8 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 - `source venv/bin/activate`
 - `pytest`
 
+#### Déploiement
+
 #### Base de données
 
 - `cd /path/to/Python-OC-Lettings-FR`
@@ -76,4 +78,3 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
 
-#### Déploiement
