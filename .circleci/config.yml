@@ -88,17 +88,21 @@ jobs:
           name: Install Heroku CLI
           command: |
             sudo curl https://cli-assets.heroku.com/install.sh | sh        
-      - setup_remote_docker
+      - setup_remote_docker               
+      - run:
+          name: Login to Heroku Container Registry
+          command: |
+            echo "$HEROKU_API_KEY" | docker login --username=_ --password-stdin registry.heroku.com
       - run:
           name: Extract commit message
           command: |
             COMMIT_MESSAGE=$(git log -1 --pretty=%B)
             echo "export COMMIT_MESSAGE='${COMMIT_MESSAGE}'" >> $BASH_ENV
-            source $BASH_ENV                
+            source $BASH_ENV
       - run:
-          name: Login to Heroku Container Registry
+          name: Debug COMMIT_MESSAGE
           command: |
-            echo "$HEROKU_API_KEY" | docker login --username=_ --password-stdin registry.heroku.com
+            echo "Commit message is ${COMMIT_MESSAGE}"                        
       - run:
           name: Pull and tag the Django image from Docker Hub
           command: |
