@@ -100,9 +100,10 @@ jobs:
             echo "export COMMIT_MESSAGE='${COMMIT_MESSAGE}'" >> $BASH_ENV
             source $BASH_ENV
       - run:
-          name: Debug COMMIT_MESSAGE
+          name: Debug COMMIT_MESSAGE and HEROKU_APP_NAME
           command: |
-            echo "Commit message is ${COMMIT_MESSAGE}"                        
+            echo "Commit message is ${COMMIT_MESSAGE}"
+            echo "Heroku app name is ${HEROKU_APP_NAME}"                        
       - run:
           name: Pull and tag the Django image from Docker Hub
           command: |
