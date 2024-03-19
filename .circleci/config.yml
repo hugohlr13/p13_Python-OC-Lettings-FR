@@ -23,7 +23,7 @@ jobs:
             source .venv/bin/activate
             pytest
 
-  containerize:
+  containerize_django:
     docker:
       - image: cimg/python:3.8
     steps:
@@ -54,6 +54,25 @@ jobs:
           command: |
             docker push $DOCKERHUB_USERNAME/oc_lettings_site:"${COMMIT_MESSAGE}" 
 
+  containerize_nginx:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Nginx Docker image
+          command: |
+            docker build -f nginx.Dockerfile -t $DOCKERHUB_USERNAME/oc_lettings_nginx:"${COMMIT_MESSAGE}" .
+      - run:
+          name: Log in to Docker Hub
+          command: |
+            echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
+      - run:
+          name: Push Nginx Docker image to DockerHub
+          command: |
+            docker push $DOCKERHUB_USERNAME/oc_lettings_nginx:"${COMMIT_MESSAGE}"
+
   deploy:
     # This is an example deploy job, not actually used by the workflow
     docker:
@@ -68,7 +87,10 @@ workflows:
   build-and-test:
     jobs:
       - test-python
-      - containerize:
+      - containerize_django:
+          requires:
+            - test-python
+      - containerize_nginx:
           requires:
             - test-python
     # - deploy:
