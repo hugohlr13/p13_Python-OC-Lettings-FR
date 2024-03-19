@@ -65,13 +65,7 @@ jobs:
           command: |
             COMMIT_MESSAGE=$(git log -1 --pretty=%B)
             echo "export COMMIT_MESSAGE='${COMMIT_MESSAGE}'" >> $BASH_ENV
-            source $BASH_ENV
-      - run:
-          name: Install dependencies
-          command: |
-            python -m venv .venv
-            source .venv/bin/activate
-            pip install -r requirements.txt      
+            source $BASH_ENV      
       - run:
           name: Build Nginx Docker image
           command: |
@@ -104,7 +98,7 @@ workflows:
             - test-python
       - containerize_nginx:
           requires:
-            - test-python
+            - containerize_django
     # - deploy:
     #     requires:
     #       - test-python
