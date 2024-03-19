@@ -36,7 +36,7 @@ def profile(request, username):
         profile = Profile.objects.get(user__username=username)
         context = {'profile': profile}
         return render(request, 'profiles/profile.html', context)
-    except Profile.DoesNotExist: # pragma: no cover
+    except Profile.DoesNotExist:  # pragma: no cover
         logger.warning(f'Profile for user {username} not found')
     except Exception as e:  # noqa: F841 pragma: no cover
         logger.error(f'Error loading profile for user {username}', exc_info=True)
