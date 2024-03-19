@@ -90,7 +90,7 @@ jobs:
           command: '#e.g. ./deploy.sh'
 
 workflows:
-  build-and-test:
+  test-and-build:
     jobs:
       - test-python
       - containerize_django:
