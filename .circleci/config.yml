@@ -61,6 +61,18 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: Extract commit message
+          command: |
+            COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+            echo "export COMMIT_MESSAGE='${COMMIT_MESSAGE}'" >> $BASH_ENV
+            source $BASH_ENV
+      - run:
+          name: Install dependencies
+          command: |
+            python -m venv .venv
+            source .venv/bin/activate
+            pip install -r requirements.txt      
+      - run:
           name: Build Nginx Docker image
           command: |
             docker build -f nginx.Dockerfile -t $DOCKERHUB_USERNAME/oc_lettings_nginx:"${COMMIT_MESSAGE}" .
