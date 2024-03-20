@@ -16,42 +16,27 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # the application crashes without emitting any logs due to buffering.
 ENV PYTHONUNBUFFERED=1
 
-WORKDIR /app
-
 # Pass SECRET_KEY as build-time variable
 ARG SECRET_KEY
 ENV SECRET_KEY=${SECRET_KEY}
 
-# Create a non-privileged user that the app will run under.
-# See https://docs.docker.com/go/dockerfile-user-best-practices/
-ARG UID=10001
-RUN adduser \
-    --disabled-password \
-    --gecos "" \
-    --home "/nonexistent" \
-    --shell "/sbin/nologin" \
-    --no-create-home \
-    --uid "${UID}" \
-    appuser
+WORKDIR /app
 
-# Download dependencies as a separate step to take advantage of Docker's caching.
-# Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
-# Leverage a bind mount to requirements.txt to avoid having to copy them into
-# into this layer.
-RUN --mount=type=cache,target=/root/.cache/pip \
-    --mount=type=bind,source=requirements.txt,target=requirements.txt \
-    python -m pip install -r requirements.txt
+# Creating a non-root user
+RUN addgroup --system app && adduser --system --group app
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the source code into the container.
 COPY . .    
 
+# Collect static files
 RUN python manage.py collectstatic --noinput
 
-# Switch to the non-privileged user to run the application.
-USER appuser
-
-# Expose the port that the application listens on.
-EXPOSE 8000
+# Change to a non-root user
+USER app
 
 # Run the application.
-CMD python manage.py runserver 0.0.0.0:8000
+CMD gunicorn oc_lettings_site.wsgi:application --bind 0.0.0.0:$PORT
