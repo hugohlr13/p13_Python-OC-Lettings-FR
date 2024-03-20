@@ -18,6 +18,10 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
+# Pass SECRET_KEY as build-time variable
+ARG SECRET_KEY
+ENV SECRET_KEY=${SECRET_KEY}
+
 # Create a non-privileged user that the app will run under.
 # See https://docs.docker.com/go/dockerfile-user-best-practices/
 ARG UID=10001
