@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   web:
-    image : hugohlr/oc_lettings_site:${COMMIT_SHA}
+    image : hugohlr/oc_lettings_site:latest
     build: 
       context: .
       args:

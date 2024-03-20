@@ -30,20 +30,21 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          name: Install Docker Compose
+          name: Extract commit message
           command: |
-            sudo curl -L "https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-            sudo chmod +x /usr/local/bin/docker-compose
-      - run:
-          name: Prepare environment variables
-          command: |
-            echo 'export COMMIT_SHA=$(git rev-parse --short HEAD)' >> $BASH_ENV
-            echo 'export SECRET_KEY=supersecret' >> $BASH_ENV  # Assurez-vous de sécuriser votre clé secrète !
+            COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+            echo "export COMMIT_MESSAGE='${COMMIT_MESSAGE}'" >> $BASH_ENV
             source $BASH_ENV
+      - run:
+          name: Install dependencies
+          command: |
+            python -m venv .venv
+            source .venv/bin/activate
+            pip install -r requirements.txt
       - run:
           name: Build Docker image
           command: |
-            docker-compose build web
+            docker build --build-arg SECRET_KEY=${SECRET_KEY} -t $DOCKERHUB_USERNAME/oc_lettings_site:"${COMMIT_MESSAGE}" .
       - run:
           name: Log in to Docker Hub
           command: |
@@ -51,7 +52,7 @@ jobs:
       - run:
           name: Push Docker image to DockerHub
           command: |
-            docker-compose push web 
+            docker push $DOCKERHUB_USERNAME/oc_lettings_site:"${COMMIT_MESSAGE}" 
 
   deploy:
     docker:
