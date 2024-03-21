@@ -18,10 +18,17 @@ jobs:
             source .venv/bin/activate
             pip install -r requirements.txt
       - run:
+          name: Check versions and config
+          command: |
+            source .venv/bin/activate
+            python --version
+            flake8 --version
+            cat setup.cfg            
+      - run:
           name: Linting
           command: |
             source .venv/bin/activate
-            flake8 . --jobs 1 -v                           
+            flake8 oc_lettings_site                         
       - run:
           name: Run tests
           command: |
