@@ -55,6 +55,10 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 
 #### Déploiement
 
+- Push sur la branche Master
+- Déclenchement de la CI/CD
+- Déploiement automatisé sur Heroku
+
 #### Base de données
 
 - `cd /path/to/Python-OC-Lettings-FR`

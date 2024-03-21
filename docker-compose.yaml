@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   web:
+    image : hugohlr/oc_lettings_site:latest
     build: 
       context: .
       args:
