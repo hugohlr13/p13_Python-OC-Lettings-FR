@@ -28,6 +28,11 @@ jobs:
             source .venv/bin/activate
             coverage run -m pytest
             coverage report
+      - run:
+          name: Check test coverage
+          command: |
+            source .venv/bin/activate
+            coverage report --fail-under=80            
 
   containerize_django:
     docker:
