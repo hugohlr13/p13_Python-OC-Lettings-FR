@@ -55,9 +55,22 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 
 #### Déploiement
 
-- Push sur la branche Master
-- Déclenchement de la CI/CD
-- Déploiement automatisé sur Heroku
+Le déploiement de cette application se fait via une intégration et une livraison continues (CI/CD) en utilisant **CircleCI**. Chaque push dans la branche `master` déclenche le pipeline CI/CD qui exécute les tests automatiques et, s'ils réussissent, déploie l'application sur **Heroku**.
+
+##### Configuration Requise :
+Pour que le déploiement fonctionne correctement, vous devez :
+
+1. Avoir un compte sur **Heroku** et **CircleCI**.
+2. Configurer les variables d'environnement nécessaires dans votre projet CircleCI, comme `SECRET_KEY`, `DOCKERHUB_USERNAME`,`DOCKERHUB_PASSWORD` `HEROKU_API_KEY`, `HEROKU_APP_NAME` etc.
+3. S'assurer que le fichier de configuration CI/CD `.circleci/config.yml` est correctement configuré selon les exigences de l'application.
+
+#### Étapes pour le Déploiement :
+1. Connectez-vous à **Heroku** et configurez un nouvelle application avec les variables d'environnement comme `SECRET_KEY` et `SENTRY_DSN`. 
+2. Dans **CircleCI**, liez votre dépôt GitHub à votre projet CircleCI.
+3. Configurez les variables d'environnement dans CircleCI en vous assurant qu'elles correspondent à celles attendues par l'application.
+4. Poussez votre code dans la branche `master`.
+5. Surveillez le pipeline CI/CD pour vous assurer que les tests passent et que le déploiement s'effectue correctement.
+6. Une fois le déploiement réussi, accédez à l'URL fournie par Heroku pour voir l'application en ligne.
 
 #### Base de données
 
