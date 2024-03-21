@@ -15,7 +15,6 @@ Welcome to oc_lettings_site's documentation!
    quickstart
    technologies
    database_structure
-   api_description
    usage_guide
    deployment_management
 

@@ -9,7 +9,7 @@ Site Web 2.0 - Caractéristiques et Améliorations
 Amélioration de l’Architecture Modulaire
 ----------------------------------------
 
-Nous optimisons notre architecture de site web en transitionnant d'une conception monolithique à une architecture plus modulaire. Nous prévoyons :
+Nous optimisons notre architecture de site web d'une conception monolithique à une architecture plus modulaire. Nous prévoyons :
 
 * Réorganisation de notre code en plusieurs applications distinctes.
 * Déplacement des fichiers HTML dans des dossiers de templates dédiés à chaque application.
@@ -55,16 +55,3 @@ Le pipeline CI/CD sera composé de :
 * Compilation et tests, vérifiant que la couverture des tests est supérieure à 80%.
 * Conteneurisation et étiquetage des images pour Docker, suivi du déploiement sur l'hébergeur choisi.
 * Vérification que seules les modifications sur la branche master déclenchent la conteneurisation et le déploiement.
-
-Documentation de l’Application
--------------------------------
-
-Une documentation technique complète sera créée pour détailler :
-
-* La structure du projet.
-* Les instructions d'installation et de démarrage rapide.
-* Les technologies et langages utilisés.
-* La structure de la base de données et des modèles de données.
-* Les interfaces de programmation.
-* Un guide d'utilisation et des cas d'utilisation.
-* Les procédures de déploiement et de gestion de l'application.

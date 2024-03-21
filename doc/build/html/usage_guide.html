@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>&lt;no title&gt; &#8212; Documentation oc_lettings_site 1.0</title>
+    <title>Guide d’Utilisation &#8212; Documentation oc_lettings_site 1.0</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
     <script src="_static/documentation_options.js?v=7a28dfa3"></script>
@@ -14,8 +14,8 @@
     <script src="_static/translations.js?v=d99ca74e"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Recherche" href="search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="deployment_management.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="api_description.html" />
+    <link rel="next" title="Gestion du Déploiement" href="deployment_management.html" />
+    <link rel="prev" title="Structure de la base de données et des modèles de données" href="database_structure.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -33,7 +33,28 @@
 
           <div class="body" role="main">
             
-  
+  <section id="guide-d-utilisation">
+<span id="usage-guide"></span><h1>Guide d’Utilisation<a class="headerlink" href="#guide-d-utilisation" title="Link to this heading">¶</a></h1>
+<p>Cette section fournit des instructions pour différents types d’utilisateurs afin d’interagir efficacement avec l’application.</p>
+<section id="administrateurs">
+<h2>Administrateurs<a class="headerlink" href="#administrateurs" title="Link to this heading">¶</a></h2>
+<p>Les administrateurs peuvent gérer les données de l’application via l’interface admin de Django. Les tâches administratives clés incluent :</p>
+<ul class="simple">
+<li><p><strong>Gestion des Lettings</strong> : Ajouter, éditer ou supprimer des annonces de location pour garder les offres du site à jour.</p></li>
+<li><p><strong>Gestion des Profiles</strong> : Créer, mettre à jour ou supprimer des profils d’utilisateurs pour refléter les changements chez les utilisateurs du site.</p></li>
+</ul>
+</section>
+<section id="visiteurs">
+<h2>Visiteurs<a class="headerlink" href="#visiteurs" title="Link to this heading">¶</a></h2>
+<p>Les visiteurs du site peuvent interagir avec le contenu de plusieurs manières :</p>
+<ul class="simple">
+<li><p><strong>Visualisation des locations</strong> : Parcourir la liste des locations disponibles sous le point de terminaison <cite>/lettings/</cite>.</p></li>
+<li><p><strong>Exploration des profils</strong> : Accéder au point de terminaison <cite>/profiles/</cite> pour voir les profils des utilisateurs, en apprendre davantage sur les autres utilisateurs ou les gestionnaires de propriétés sur le site.</p></li>
+</ul>
+<p>Ces guides sont conçus pour aider les utilisateurs à naviguer et à utiliser le site de manière efficace, que ce soit pour gérer le contenu en tant qu’administrateur ou pour explorer les annonces en tant que visiteur.</p>
+</section>
+</section>
+
 
           </div>
           
@@ -52,16 +73,26 @@
 
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Prérequis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Guide de démarrage rapide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technologies.html">Technologies utilisées</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database_structure.html">Structure de la base de données et des modèles de données</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Guide d’Utilisation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#administrateurs">Administrateurs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#visiteurs">Visiteurs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment_management.html">Gestion du Déploiement</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="api_description.html" title="Chapitre précédent">&lt;no title&gt;</a></li>
-      <li>Next: <a href="deployment_management.html" title="Chapitre suivant">&lt;no title&gt;</a></li>
+      <li>Previous: <a href="database_structure.html" title="Chapitre précédent">Structure de la base de données et des modèles de données</a></li>
+      <li>Next: <a href="deployment_management.html" title="Chapitre suivant">Gestion du Déploiement</a></li>
   </ul></li>
 </ul>
 </div>
