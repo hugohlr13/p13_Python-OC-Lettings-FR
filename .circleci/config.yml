@@ -21,7 +21,7 @@ jobs:
           name: Linting
           command: |
             source .venv/bin/activate
-            flake8 --jobs 1                           
+            flake8 .                           
       - run:
           name: Run tests
           command: |
